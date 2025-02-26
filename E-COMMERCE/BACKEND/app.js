@@ -36,7 +36,7 @@ const { ConnectToDb } = require('./db/db');
 ConnectToDb();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
@@ -44,5 +44,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRoutes);  // Register the routes here
+app.use('/login', userRoutes);
+
 
 module.exports = app;

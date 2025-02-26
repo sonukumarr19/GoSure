@@ -27,4 +27,59 @@ Example:
   "email": "john.doe@example.com",
   "password": "password123"
 }
+```
+
+### Response Body
+```json
+{
+  "token": "your_jwt_token",
+  "user": {
+    "_id": "user_id",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "socketId": null
+  }
+}
+```
+
+## User Login Endpoint
+
+### Endpoint
+`POST /users/login`
+
+### Description
+This endpoint allows an existing user to log in by providing their email and password. Upon successful authentication, a JSON Web Token (JWT) is generated and returned along with the user details.
+
+### Request Body
+The request body should be a JSON object containing the following fields:
+
+- `email`: A string representing the user's email address. Must be a valid email format.
+- `password`: A string representing the user's password. Must be at least 6 characters long.
+
+Example:
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+```
+
+### Response Body
+```json
+{
+  "token": "your_jwt_token",
+  "user": {
+    "_id": "user_id",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "socketId": null
+  }
+}
+```
 
