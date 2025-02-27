@@ -83,3 +83,47 @@ Example:
 }
 ```
 
+## User Profile Endpoint
+
+### Endpoint
+`GET /users/profile`
+
+### Description
+This endpoint retrieves the authenticated user's profile information. The request requires a valid JWT token to be passed via the `Authorization` header.
+
+### Request Headers
+- `Authorization`: Bearer `your_jwt_token`
+
+### Response Body
+```json
+{
+  "user": {
+    "_id": "user_id",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "socketId": null
+  }
+}
+```
+
+## User Logout Endpoint
+
+### Endpoint
+`POST /users/logout`
+
+### Description
+This endpoint logs out the authenticated user by invalidating the JWT token. The request requires a valid JWT token to be passed via the `Authorization` header.
+
+### Request Headers
+- `Authorization`: Bearer `your_jwt_token`
+
+### Response Body
+```json
+{
+  "message": "User successfully logged out."
+}
+```
+

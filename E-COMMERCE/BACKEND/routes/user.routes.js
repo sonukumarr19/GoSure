@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controllers');
+const authMiddleware = require('../middlewares/auth.middleware');
 
 
 const {body} = require('express-validator');
@@ -21,6 +22,9 @@ router.post('/login' , [
                                 //jo validation result pr jo bhi action perform karna h uska logic iss function me h   
 )
 
+router.get('/profile',authMiddleware.authUser, userController.getUserProfile)    
+
+router.get('/logout',authMiddleware.authUser, userController.logoutUser)
 
 module.exports = router;
 
