@@ -189,3 +189,148 @@ Example:
 }
 ```
 
+## Login Captain
+
+**Endpoint:**
+```
+POST /captains/login
+```
+
+**Description:**
+This endpoint allows a captain to log in using their email and password. Upon successful authentication, it returns an access token and captain details.
+
+**Request Body:**
+```json
+{
+  "email": "captain@example.com",
+  "password": "yourpassword"
+}
+```
+
+**Success Response:**
+```json
+{
+  "token": "your-jwt-token",
+  "captain": {
+    "_id": "64f8a1b2c3d4e5f6a7b8c9d0",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "captain@example.com",
+    "status": "active",
+    "vehicle": {
+      "color": "red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+**Error Responses:**
+- `400 Bad Request` – Validation errors in the request body.
+- `401 Unauthorized` – Invalid email or password.
+
+---
+
+## Get Captain Profile
+
+**Endpoint:**
+```
+GET /captains/profile
+```
+
+**Description:**
+This endpoint fetches the currently authenticated captain's profile. The request must include a valid authentication token.
+
+**Headers:**
+```
+Authorization: Bearer your-jwt-token
+```
+
+**Success Response:**
+```json
+{
+  "captain": {
+    "_id": "64f8a1b2c3d4e5f6a7b8c9d0",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "captain@example.com",
+    "status": "active",
+    "vehicle": {
+      "color": "red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+**Error Responses:**
+- `401 Unauthorized` – Missing or invalid token.
+
+---
+
+## Logout Captain
+
+**Endpoint:**
+```
+POST /captains/logout
+```
+
+**Description:**
+Logs out the currently authenticated captain by blacklisting the token.
+
+**Headers:**
+```
+Authorization: Bearer your-jwt-token
+```
+
+**Success Response:**
+```json
+{
+  "message": "Logout successful"
+}
+```
+
+**Error Responses:**
+- `401 Unauthorized` – Missing or invalid token.
+
+---
+
+## Request Structure
+
+### Captain Object
+```json
+{
+  "fullName": {
+    "firstName": "string",
+    "lastName": "string"
+  },
+  "email": "string",
+  "password": "string",
+  "vehicle": {
+    "color": "string",
+    "plate": "string",
+    "capacity": "number",
+    "vehicleType": "car | motorbike | auto"
+  }
+}
+```
+
+### Authorization Header
+```
+Authorization: Bearer your-jwt-token
+```
+
+---
+
+## Notes
+- Ensure that the JWT token is sent in the Authorization header for protected routes.
+- Validate input fields as per the request structure.
+
