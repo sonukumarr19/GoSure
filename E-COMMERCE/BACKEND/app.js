@@ -7,6 +7,7 @@ const app = express();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');        
 const userRoutes = require('./routes/user.routes');
+const captainRoutes = require('./routes/captain.routes');
 
 const { ConnectToDb } = require('./db/db');
 ConnectToDb();
@@ -21,7 +22,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRoutes);  // Register the routes here
-app.use('/login', userRoutes);
+//app.use('/login', userRoutes);
+app.use('/captains', captainRoutes);  // Register the routes here
 
 
 module.exports = app;

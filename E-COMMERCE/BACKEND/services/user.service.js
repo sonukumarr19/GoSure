@@ -1,4 +1,4 @@
-//service used to interech with database
+//service used to interect with database
 
 const userModel = require('../models/user.model');
 
