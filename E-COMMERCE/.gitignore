@@ -1,6 +1,7 @@
 .env
 node_modules
 /../CHAT-APP/
+CHAT-APP/
 
 # Ignore all CHAT-APP instances
 **/CHAT-APP/
