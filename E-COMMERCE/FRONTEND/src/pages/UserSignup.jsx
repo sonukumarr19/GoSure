@@ -1,8 +1,9 @@
 import React from 'react'
 import uberImage from '../assets/Gemini_Generated_Image_8g530h8g530h8g53_prev_ui (1).png';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Link , useNavigate } from 'react-router-dom';
 //import { useState } from 'react';
+import axios from 'axios';
+import {UserDataContext} from '../context/UserContext';
 
 
 
@@ -12,31 +13,37 @@ const UserSignup = () => {
   const [lastName, setLastName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [userData , setUserData] = React.useState({});
 
+  const navigate = useNavigate();
+  const {user , setUser} = React.useContext(UserDataContext);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-
-    setUserData({
+ 
+    const newUser = {
       fullName:{
         firstName: firstName,
         lastName: lastName
       },
       email: email,
       password: password
-    })
+    }
 
-    //console.log(userData);
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser);//check
+
+    if(response.status === 201){
+      const data = response.data;
+      setUser(data.user);
+      localStorage.setItem('token', data.token);
+      navigate('/home');
+    }
+    
+
     setFirstName('');
     setLastName('');
     setEmail('');
     setPassword('');    
   }
-
-  useEffect(() => {
-        console.log(userData); // Logs updated captainData
-      }, [userData]);
 
   return (
     <div>
@@ -59,12 +66,12 @@ const UserSignup = () => {
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
-          </div>
+          </div>     
 
 
           <h3 className='text-base font-medium mb-2'>Enter your email</h3>
           <input 
-            required type="email" placeholder='eamil@example.com'
+            required type="email" placeholder='email@example.com'
             className='bg-[#eeeeee] rounded mb-5 py-2 px-4 w-full text-base placeholder:text-sm'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -79,7 +86,7 @@ const UserSignup = () => {
           <button 
               className='text-lg bg-[#111] text-white font-semibold mb-3 px-4 py-2 w-full rounded mt-5'
               >
-              Sign up
+              Create Account
           </button>
         </form>
 

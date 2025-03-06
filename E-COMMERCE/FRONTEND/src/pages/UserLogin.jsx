@@ -1,29 +1,56 @@
 import React from 'react'
 import uberImage from '../assets/Gemini_Generated_Image_8g530h8g530h8g53_prev_ui (1).png';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState , useContext } from 'react';
+import { UserDataContext } from '../context/UserContext';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const UserLogin = () => {
   const [email, setEmail] = useState(''); 
   const [password, setPassword] = useState('');
-  const [userData , setUserData] = useState({});
+  //const [userData , setUserData] = useState({});
 
-  const submitHandler = (e) => {
+  const {user , setUser} = useContext(UserDataContext);
+  const navigate = useNavigate();
+  
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setUserData({
+  
+    const userData = {
       email: email,
-      password: password
-    });  
-    //console.log(userData);
-    setEmail('');
-    setPassword('');
-  }
-
-  useEffect(() => {
-      console.log(userData); // Logs updated captainData
-    }, [userData]);
-
+      password: password,
+    };
+  
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/users/login`,
+        userData
+      );
+  
+      if (response.status === 200) {
+        const data = response.data;
+        
+        // Set user and store token
+        setUser(data.user);
+        localStorage.setItem("token", data.token);
+  
+        // Clear fields
+        setEmail("");
+        setPassword("");
+  
+        // Navigate to home
+        navigate("/home");
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+      alert("Login failed. Please check your credentials.");
+    }
+  };
+  
     
   return (
     <div className='p-7 h-screen flex flex-col justify-between'>
@@ -32,7 +59,7 @@ const UserLogin = () => {
         <form onSubmit= {(e) => submitHandler(e)}>
           <h3 className='text-lg font-medium mb-2'>What's your email</h3>
           <input 
-            required type="email" placeholder='eamil@example.com'
+            required type="email" placeholder='email@example.com'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className='bg-[#eeeeee] rounded mb-7 py-2 px-4 w-full text-lg placeholder:text-base'
