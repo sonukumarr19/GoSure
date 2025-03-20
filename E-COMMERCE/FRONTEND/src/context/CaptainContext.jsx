@@ -1,16 +1,8 @@
 import React from 'react'
-import { createContext, useState , useContext } from 'react';
+import { createContext, useState} from 'react';
 
 export const CaptainDataContext = createContext();
 
-// export const useCaptain = () => {
-//     const context = useContext(CaptainDataContext)
-//     if (!context) {
-//         throw new Error('useCaptain must be used within a CaptainProvider')
-//     }
-//     return context
-// }   
-    
 
 const CaptainContext = ({children}) => {
     const [captain, setCaptain] = useState(null);

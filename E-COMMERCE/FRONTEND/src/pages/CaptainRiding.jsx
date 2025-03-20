@@ -1,17 +1,20 @@
 import React from 'react'
-import map from '../assets/map.jpeg';
+// import map from '../assets/map.jpeg';
 import GoSureImage from '../assets/Gemini_Generated_Image_8g530h8g530h8g53_prev_ui (1).png';
-import { Link } from 'react-router-dom';
+import { Link ,useLocation} from 'react-router-dom';
 import { useState } from 'react';
 import {useGSAP} from '@gsap/react';
 import { useRef } from 'react';
 import gsap from 'gsap';
 import FinishRide from '../components/FinishRide';
+import LiveTracking from '../components/LiveTracking';
 
 const CaptainRiding = () => {
 
     const [finishRidePanel, setFinishRidePanel] = useState(false);
     const  finishRidePanelRef = useRef(null);
+    const location = useLocation()
+    const rideData = location.state?.ride
 
 
     useGSAP(()=>{
@@ -36,7 +39,8 @@ const CaptainRiding = () => {
         </div>
 
         <div className='h-4/5'>
-            <img className='h-full w-full object-cover' src={map} alt="Car" />
+            {/* <img className='h-full w-full object-cover' src={map} alt="Car" /> */}
+            <LiveTracking/>
         </div>
 
         <div className='h-1/5 p-6 flex items-center justify-between bg-yellow-400 relative'
@@ -53,7 +57,9 @@ const CaptainRiding = () => {
         </div>
 
         <div ref={finishRidePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full  bg-white px-3 py-10 pt-12'>
-              <FinishRide setFinishRidePanel={setFinishRidePanel} />
+              <FinishRide 
+                ride={rideData}
+                setFinishRidePanel={setFinishRidePanel} />
         </div>
     </div>
   )
