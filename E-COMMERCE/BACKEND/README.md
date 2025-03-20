@@ -334,3 +334,181 @@ Authorization: Bearer your-jwt-token
 - Ensure that the JWT token is sent in the Authorization header for protected routes.
 - Validate input fields as per the request structure.
 
+## Maps Endpoints
+
+### Get Coordinates Endpoint
+
+**Endpoint:**  
+`GET /maps/get-coordinates`
+
+**Description:**  
+This endpoint returns the geographical coordinates (latitude and longitude) for a given address.
+
+**Query Parameters:**  
+- `address` (string): The address to geocode. Must be at least 3 characters long.
+
+**Request Headers:**  
+- `Authorization`: Bearer `your_jwt_token`
+
+**Sample Request:**  
+```
+GET {{baseurl}}/maps/get-coordinates?address=1600+Amphitheatre+Parkway HTTP/1.1
+Authorization: Bearer your_jwt_token
+```
+
+**Sample Response:**  
+```json
+{
+  "coordinates": {
+    "lat": 37.4224764,
+    "lng": -122.0842499
+  },
+  "message": "Coordinates retrieved successfully."
+}
+```
+
+---
+
+### Get Distance and Time Endpoint
+
+**Endpoint:**  
+`GET /maps/get-distance-time`
+
+**Description:**  
+This endpoint returns the travel distance and estimated time between an origin and a destination address.
+
+**Query Parameters:**  
+- `origin` (string): The starting address. Must be at least 3 characters long.
+- `destination` (string): The destination address. Must be at least 3 characters long.
+
+**Request Headers:**  
+- `Authorization`: Bearer `your_jwt_token`
+
+**Sample Request:**  
+```
+GET {{baseurl}}/maps/get-distance-time?origin=Place+A&destination=Place+B HTTP/1.1
+Authorization: Bearer your_jwt_token
+```
+
+**Sample Response:**  
+```json
+{
+  "distance": {
+    "text": "10 km",
+    "value": 10000
+  },
+  "duration": {
+    "text": "15 mins",
+    "value": 900
+  },
+  "message": "Distance and travel time retrieved successfully."
+}
+```
+
+---
+
+### Get Suggestions Endpoint
+
+**Endpoint:**  
+`GET /maps/get-suggestions`
+
+**Description:**  
+This endpoint returns a list of location suggestions based on the provided input string.
+
+**Query Parameters:**  
+- `input` (string): The search term for location suggestions. Must be at least 3 characters long.
+
+**Request Headers:**  
+- `Authorization`: Bearer `your_jwt_token`
+
+**Sample Request:**  
+```
+GET {{baseurl}}/maps/get-suggestions?input=Central HTTP/1.1
+Authorization: Bearer your_jwt_token
+```
+
+**Sample Response:**  
+```json
+{
+  "suggestions": [
+    "Central Park, New York, NY, USA",
+    "Central Station, Sydney, Australia",
+    "Central Market, Los Angeles, CA, USA"
+  ],
+  "message": "Suggestions retrieved successfully."
+}
+```
+
+---
+
+### Create Ride Endpoint
+
+**Endpoint:**  
+`POST /rides/create`
+
+**Description:**  
+This endpoint creates a new ride request for the authenticated user. It validates the pickup and destination addresses, computes the fare based on the selected vehicle type and route, generates a six-digit OTP for ride confirmation, and returns the ride details.
+
+**Request Headers:**  
+- `Authorization`: Bearer `your_jwt_token`
+
+**Request Body:**  
+```json
+{
+  "pickup": "123 Main St",
+  "destination": "456 Elm St",
+  "vehicleType": "car"
+}
+```
+
+**Sample Request:**  
+```
+POST {{baseurl}}/rides/create HTTP/1.1
+Authorization: Bearer your_jwt_token
+Content-Type: application/json
+
+{
+  "pickup": "123 Main St",
+  "destination": "456 Elm St",
+  "vehicleType": "car"
+}
+```
+
+**Sample Response:**  
+```json
+{
+  "_id": "ride_id_here",
+  "user": "user_id_here",
+  "pickup": "123 Main St",
+  "destination": "456 Elm St",
+  "fare": 110,
+  "otp": "123456",
+  "status": "pending",
+  "message": "Ride created successfully."
+}
+```
+
+## Get Fare Endpoint
+
+### Endpoint
+`GET /rides/get-fare`
+
+### Description
+This endpoint calculates the estimated fare for a ride based on the provided pickup and destination addresses. It computes fare estimates for available vehicle types (auto, car, and motorbike) using travel distance and time.
+
+### Request Headers
+- `Authorization`: Bearer `your_jwt_token`
+
+### Query Parameters
+- `pickup` (string): The pickup address. Must be at least 3 characters long.
+- `destination` (string): The destination address. Must be at least 3 characters long.
+
+### Response Body
+Example successful response:
+```json
+{
+  "auto": 75,
+  "car": 110,
+  "motorbike": 55
+}
+```
