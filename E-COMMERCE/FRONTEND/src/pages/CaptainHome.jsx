@@ -10,6 +10,7 @@ import { useEffect, useContext } from 'react'
 import { SocketContext } from '../context/SocketContext'
 import { CaptainDataContext } from '../context/CaptainContext'
 import axios from 'axios'
+import LiveTracking from '../components/LiveTracking'
 
 const CaptainHome = () => {
 
@@ -103,16 +104,16 @@ const CaptainHome = () => {
     }, [ confirmRidePopupPanel ])
 
     return (
-        <div className='h-screen'>
-            <div className='fixed p-6 top-0 flex items-center justify-between w-screen'>
-                <img className='w-20 bg-auto' src={GoSure} alt="GoSure" />
+        <div className='h-screen relative'>
+            <div className='fixed p-6 top-0 flex items-center justify-between w-screen z-10'>
+                <img className='w-35 bg-auto  ' src={GoSure} alt="GoSure" />
                 <Link to='/captain-home' className=' h-10 w-10 bg-white flex items-center justify-center rounded-full'>
                     <i className="text-lg font-medium ri-logout-box-r-line"></i>
                 </Link>
             </div>
-            <div className='h-3/5'>
-                <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="" />
-
+            <div className='w-full h-3/5 relative z-0 '>
+                {/* <img className='h-full w-full object-cover' src="https://miro.medium.com/v2/resize:fit:1400/0*gwMx05pqII5hbfmX.gif" alt="" /> */}
+                <LiveTracking  className='h-full w-full object-cover '/>
             </div>
             <div className='h-2/5 p-6'>
                 <CaptainDetails />

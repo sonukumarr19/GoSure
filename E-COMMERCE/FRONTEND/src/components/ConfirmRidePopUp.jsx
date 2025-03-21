@@ -31,7 +31,7 @@ const ConfirmRidePopUp = (props) => {
 
 
   return (
-    <div>
+            <div>
                 <h5 className='p-1 text-center w-[93%] absolute top-0'
                 onClick={()=>{
                     props.setRidePopupPanel(false);
@@ -71,7 +71,7 @@ const ConfirmRidePopUp = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className='p-6 w-full'>
+                    <div className='p-6 w-full -mt-7'>
                         <form onSubmit={submitHandler}>
                             <input value={otp} onChange={(e)=>setOtp(e.target.value)} type="text"  placeholder='Enter Otp'className=' bg-[#eee] text-xl px-6 py-4 font-mono rounded-lg w-full mt-1'/>
 

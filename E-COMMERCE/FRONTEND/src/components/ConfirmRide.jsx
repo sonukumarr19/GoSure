@@ -38,11 +38,20 @@ const ConfirmRide = (props) => {
                     </div>
                 </div>
             </div>
-            <button onClick={()=>{
-                props.setvehicleFound(true);
-                props.setConfirmRidePanel(false);
-                props.createRide();
-            }} className='w-full bg-green-600 text-white font-semibold p-2 mt-5 rounded-lg'>Confirm</button>
+            <button 
+                // onClick={()=>{
+                //     console.log("Confirm clicked");
+                //     props.setvehicleFound(true);
+                //     props.setConfirmRidePanel(false);
+                //     props.createRide();
+                // }} 
+                onClick={() => {
+                    console.log("Confirm clicked");
+                    props.setvehicleFound(true);
+                    props.setConfirmRidePanel(false);
+                    props.createRide();
+                  }}
+            className='w-full bg-green-600 text-white font-semibold p-2 mt-5 rounded-lg'>Confirm</button>
         </div>
     </div>
   )

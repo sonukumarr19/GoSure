@@ -6,6 +6,7 @@ import { useContext } from 'react'
 import { SocketContext } from '../context/SocketContext'
 import { useNavigate } from 'react-router-dom'
 import LiveTracking from '../components/LiveTracking' 
+import GoSureImage from '../assets/Gemini_Generated_Image_8g530h8g530h8g53_prev_ui (1).png'
 
 const Riding = () => {
     const location = useLocation();
@@ -21,11 +22,14 @@ const Riding = () => {
 
   return (
     <div className='h-screen'>
-        <Link to='/home' className='fixed right-2 top-2 h-10 w-10 bg-white flex items-center justify-center rounded-full'>
-        <i className="text-lg ri-home-4-fill"></i>
-        </Link>
+        <div className='fixed top-0 p-3 w-screen flex items-center justify-between'>
+            <img className='w-24 bg-auto' src={GoSureImage} alt="GoSure" />
+            <Link to='/home' className='fixed right-2 top-2 h-10 w-10 bg-white flex items-center justify-center rounded-full'>
+            <i className="text-lg ri-home-4-fill"></i>
+            </Link>
+        </div>
 
-        <div className='h-1/2'>
+        <div className='h-1/2 top-0 flex relative items-center justify-center -z-40 object-cover'>
             {/* <img className='h-full w-full object-' src={map} alt="Car" /> */}
             <LiveTracking/>
         </div>

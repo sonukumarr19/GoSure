@@ -30,7 +30,7 @@ const CaptainRiding = () => {
       },[finishRidePanel])
 
   return (
-    <div className='h-screen'>
+    <div className='h-screen relative flex flex-col justify-end'>
         <div className='fixed top-0 p-6 w-screen flex items-center justify-between'>
             <img className='w-24 bg-auto' src={GoSureImage} alt="GoSure" />
             <Link to='/home' className=' h-10 w-10 bg-white flex items-center justify-center rounded-full'>
@@ -38,12 +38,12 @@ const CaptainRiding = () => {
             </Link>
         </div>
 
-        <div className='h-4/5'>
+        <div className='h-screen fixed w-screen top-0 z-[-1]'>
             {/* <img className='h-full w-full object-cover' src={map} alt="Car" /> */}
             <LiveTracking/>
         </div>
 
-        <div className='h-1/5 p-6 flex items-center justify-between bg-yellow-400 relative'
+        <div className='h-1/5 p-6 flex items-center justify-between bg-yellow-400 relative bottom-0'
             onClick={()=>{
                 setFinishRidePanel(true);
             }}
@@ -61,6 +61,7 @@ const CaptainRiding = () => {
                 ride={rideData}
                 setFinishRidePanel={setFinishRidePanel} />
         </div>
+
     </div>
   )
 }
